@@ -264,6 +264,17 @@ $(document).ready(function() {
 	function storeButtonClickHandler() {
 		adobeDPS.dialogService.dismissWelcomeScreen();
 	}
+	
+	//Show a clickable view issue button
+	function showViewIssueButton(folio){
+		var html  = "Enjoy your free preview of " + folio.title + ".";
+		html += "<div id='view-issue-button'>View Issue <div class='arrow-right-large'></div></div>";
+		$("#messaging").html(html);
+
+		$("#view-issue-button").on("click", function() {
+			viewFolio(folio);
+		});
+	}
 
 	// Adds the callbacks for a download.
 	function addDownloadCallBacks(transaction, folio) {
@@ -280,20 +291,19 @@ $(document).ready(function() {
 			// Set the width to zero rather than removing it so the messaging doesn't recenter vertically.
 			$progressBar.width(0);
 
-			var html  = "Enjoy your free preview of " + folio.title + ".";
-				html += "<div id='view-issue-button'>View Issue <div class='arrow-right-large'></div></div>";
-			$("#messaging").html(html);
-
-			$("#view-issue-button").on("click", function() {
-				viewFolio(folio);
-			});
+			showViewIssueButton(folio);
 		})
 
 		// Add a callback to listen for state changes to the folio.
 		// For this case we only want to see when isViewable changes.
 		folio.updatedSignal.add(function(properties) {
-			if (properties.indexOf("isViewable") > -1 && folio.isViewable && ADOBE.Config.isAutoOpenDownloadedFolio)
+			if (properties.indexOf("isViewable") > -1 && folio.isViewable && ADOBE.Config.isAutoOpenDownloadedFolio) {
 				viewFolio(folio);
+			} else if (properties.indexOf("isViewable") > -1 && folio.isViewable && ADOBE.Config.isShowViewIssueButtonASAP) {
+				showViewIssueButton(folio);
+			}
+				
+				
 		});
 	}
 

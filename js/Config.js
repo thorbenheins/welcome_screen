@@ -21,4 +21,7 @@ ADOBE.Config = {
 
 	// Flag to determine whether or not a folio will automatically open when enough of it has been downloaded.
 	isAutoOpenDownloadedFolio: false,
+	
+	// Flag to determine whether or not a button the view button should be displayed, as soon as enough has been downloaded.
+	isShowViewIssueButtonASAP: false
 }
