@@ -297,6 +297,14 @@ $(document).ready(function() {
 		// Add a callback to listen for state changes to the folio.
 		// For this case we only want to see when isViewable changes.
 		folio.updatedSignal.add(function(properties) {
+			if (ADOBE.Config.debug) {
+				debugLog("Got update signal.");
+				debugLog('properties.indexOf("isViewable"): ' + properties.indexOf("isViewable"));
+				debugLog('folio.isViewable: ' + folio.isViewable);
+				debugLog('ADOBE.Config.isAutoOpenDownloadedFolio: ' + ADOBE.Config.isAutoOpenDownloadedFolio);
+				debugLog('ADOBE.Config.isShowViewIssueButtonASAP: ' + ADOBE.Config.isShowViewIssueButtonASAP);
+			}
+			
 			if (properties.indexOf("isViewable") > -1 && folio.isViewable && ADOBE.Config.isAutoOpenDownloadedFolio) {
 				viewFolio(folio);
 			} else if (properties.indexOf("isViewable") > -1 && folio.isViewable && ADOBE.Config.isShowViewIssueButtonASAP) {

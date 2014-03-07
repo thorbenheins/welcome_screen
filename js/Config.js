@@ -1,6 +1,9 @@
 var ADOBE = ADOBE || {};
 
 ADOBE.Config = {
+	//enable debugging
+	debug: false,
+	
 	// The URL that displays the create account url for print subscribers. This is opened from the login dialog.
 	CREATE_ACCOUNT_URL: "",
 	
