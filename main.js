@@ -1,6 +1,13 @@
+var polyglot = new Polyglot({phrases: translationSet});
+
 $(document).ready(function() {
 	// Removes the 300ms delay for click events.
 	FastClick.attach(document.body);
+
+	// Do the translations in the HTML
+	for (var translationClass in translationSet) {
+		$('.' + translationClass).html(translationSet[translationClass])
+	}
 
 	var folios;
 	var previewFolios;
@@ -58,7 +65,7 @@ $(document).ready(function() {
 				init();
 			},
 			error: function() {
-				$("#messaging").html("Please connect to the internet.");
+				$("#messaging").html(polyglot.t("TRplease-connect-to-the-internet"));
 				// User is not online so wait for the deviceService to send an isOnline property.
 				adobeDPS.deviceService.updatedSignal.add(function(properties) {
 					if (properties.indexOf("isOnline") != -1 && adobeDPS.deviceService.isOnline) {
@@ -128,6 +135,7 @@ $(document).ready(function() {
 		// There also might be an installed folio if the user has opened the app with
 		// the welcome screen but doesn't tap anything then comes back to the app.
 		var isInstallAnUpdate = false;
+//XXX is this evaluation working at all?
 		var folioStates = adobeDPS.libraryService.folioStates;
 		for (var i = 0; i < len; i++) {
 			var folio = folios[i];
@@ -136,11 +144,11 @@ $(document).ready(function() {
 				break;
 			}
 		}
-
+//XXX check if the free issue is already on the device
 		if (isInstallAnUpdate) {
 			// Install is an update so display a link to go to the library.
 			$("#spinner-container").hide();
-			var html  = "<div id='go-to-library-button'>Go to library <div class='arrow-right-large'></div></div>";
+			var html  = "<div id='go-to-library-button'>" + polyglot.t("TRgo-to-library") + " <div class='arrow-right-large'></div></div>";
 			$("#messaging").html(html);
 
 			$("#go-to-library-button").on("click", function() {
@@ -194,12 +202,12 @@ $(document).ready(function() {
 			subscriptionLabels = [];
 
 			// The text that is displayed at the top of the button sheet.
-			var title = "Select a digital subscription option below. Your digital subscription will start immediately from the latest issue after you complete the purchase process.";
+			var title = polyglot.t("TRsubscribe-button-title");
 			var scope = this;
 			var availableSubscriptions = adobeDPS.receiptService.availableSubscriptions;
 			for (var s in availableSubscriptions) {
 				var availableSubscription = availableSubscriptions[s];
-				subscriptionLabels.push(availableSubscription.duration + " subscription for " + availableSubscription.price);
+				subscriptionLabels.push(availableSubscription.duration + " " + polyglot.t("TRsubscription-for") +" " + availableSubscription.price);
 				subscriptions.push(availableSubscription);
 			}
 
@@ -224,7 +232,7 @@ $(document).ready(function() {
 				if (transaction.state == adobeDPS.transactionManager.transactionStates.FINISHED)
 					adobeDPS.dialogService.dismissWelcomeScreen();
 				else if (transaction.state == adobeDPS.transactionManager.transactionStates.FAILED)
-					alert("Unable to purchase subscription.");
+					alert("TRunable-to-purchase-subscription");
 			});
 		}
 	}
@@ -267,8 +275,8 @@ $(document).ready(function() {
 	
 	//Show a clickable view issue button
 	function showViewIssueButton(folio){
-		var html  = "Enjoy your free preview of " + folio.title + ".";
-		html += "<div id='view-issue-button'>View Issue <div class='arrow-right-large'></div></div>";
+		var html  = polyglot.t("TRenjoy-your-free-preview") + " " + folio.title + ".";
+		html += "<div id='view-issue-button'>" + polyglot.t("TRview-issue") + " <div class='arrow-right-large'></div></div>";
 		$("#messaging").html(html);
 
 		$("#view-issue-button").on("click", function() {

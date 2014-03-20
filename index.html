@@ -10,6 +10,8 @@
 -->
 <script src="libs/AdobeLibraryAPI.js"></script>
 
+<script src="libs/polyglot.min.js"></script>
+<script src="js/translations.js"></script>
 <!-- jQuery library. -->
 <script src="libs/jquery-2.0.3.min.js"></script>
 
@@ -52,7 +54,7 @@
 <div id="outer-container">
 	<div id="messaging-outer-container">
 		<div id="messaging-inner-container">
-			<div id="messaging">Standby while we prepare a free preview of the latest issue.</div>
+			<div id="messaging" class="TRmessaging">Standby while we prepare a free preview of the latest issue.</div>
 			<div id="progress-bar"></div>
 			<div id="spinner-container">
 				<div id="spinner"></div>
@@ -60,10 +62,10 @@
 		</div>
 	</div>
 	<div id="button-container">
-		<div id="subscribe-button" class="button">I would like to subscribe</div>
-		<div id="print-subscriber-button" class="button">I am a print subscriber</div>
-		<div id="itunes-button" class="button">I am a digital subscriber</div>
-		<div id="store-button" class="button">Go to store <div class="arrow-right"></div></div>
+		<div id="subscribe-button" class="button TRsubscribe-button">I would like to subscribe</div>
+		<div id="print-subscriber-button" class="button TRprint-subscriber-button">I am a print subscriber</div>
+		<div id="itunes-button" class="button TRitunes-button">I am a digital subscriber</div>
+		<div id="store-button" class="button"><span class="TRstore-button">Go to store</span> <div class="arrow-right"></div></div>
 	</div>
 </div>
 
